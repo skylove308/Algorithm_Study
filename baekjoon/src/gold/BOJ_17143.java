@@ -79,30 +79,30 @@ public class BOJ_17143 {
 				if (dir == 1) {
 					if ((nx + time - 2) / (R - 1) % 2 == 1) {
 						dir = 2;
-						nx = (nx + time - 1) % (R - 1);
+						nx = (nx + time - 1) % R + 1;
 					} else {
-						nx = (nx + time - 1) % (R - 1) + 1;
+						nx = R - (nx + time - 1) % R;
 					}
 				} else if (dir == 2) {
 					if ((nx + time - 2) / (R - 1) % 2 == 1) {
 						dir = 1;
-						nx = (nx + time - 1) % (R - 1) + 1;
+						nx = (nx + time - 1) % R + 1;
 					} else {
-						nx = (nx + time - 1) % (R - 1) + 1;
+						nx = R - (nx + time - 1) % R ;
 					}
 				} else if (dir == 3) {
 					if ((ny + time - 2) / (C - 1) % 2 == 1) {
 						dir = 4;
-						ny = (ny + time - 1) % (C - 1) + 1;
+						ny = (ny + time - 1) % C + 1;
 					} else {
-						ny = (ny + time - 1) % (C - 1) + 1;
+						ny = C - (ny + time - 1) % C;
 					}
 				} else {
 					if ((ny + time - 2) / (C - 1) % 2 == 1) {
 						dir = 3;
-						ny = (ny + time - 1) % (C - 1) + 1;
+						ny = (ny + time - 1) % C + 1;
 					} else {
-						ny = (ny + time - 1) % (C - 1) + 1;
+						ny = C - (ny + time - 1) % C;
 					}
 				}
 
