@@ -75,37 +75,25 @@ public class BOJ_17143 {
 				int dir = shark.d;
 				int nx = shark.r;
 				int ny = shark.c;
-
-				if (dir == 1) {
-					if ((nx + time - 2) / (R - 1) % 2 == 1) {
-						dir = 2;
-						nx = (nx + time - 1) % R + 1;
-					} else {
-						nx = R - (nx + time - 1) % R;
+				
+				// 반복이므로 2*(R-1), 2*(C-1) 이후에는 같은 방향과 자리로 되돌아 오는 것을 이용하여 반복문을 줄인다.
+				if(dir==1||dir==2)
+					time %= 2*(R-1);
+				else
+					time %= 2*(C-1);
+				
+				while (time > 0) {
+					nx += dx[dir - 1];
+					ny += dy[dir - 1];
+					if (nx <= 0 || ny <= 0 || nx > R || ny > C) {
+						nx -= dx[dir - 1];
+						ny -= dy[dir - 1];
+						dir = change_dir(dir);
+						nx += dx[dir - 1];
+						ny += dy[dir - 1];
 					}
-				} else if (dir == 2) {
-					if ((nx + time - 2) / (R - 1) % 2 == 1) {
-						dir = 1;
-						nx = (nx + time - 1) % R + 1;
-					} else {
-						nx = R - (nx + time - 1) % R ;
-					}
-				} else if (dir == 3) {
-					if ((ny + time - 2) / (C - 1) % 2 == 1) {
-						dir = 4;
-						ny = (ny + time - 1) % C + 1;
-					} else {
-						ny = C - (ny + time - 1) % C;
-					}
-				} else {
-					if ((ny + time - 2) / (C - 1) % 2 == 1) {
-						dir = 3;
-						ny = (ny + time - 1) % C + 1;
-					} else {
-						ny = C - (ny + time - 1) % C;
-					}
+					time--;
 				}
-
 				if (temp_map[nx][ny] != null) {
 					Shark prev_shark = temp_map[nx][ny];
 					if (shark.z > prev_shark.z)
