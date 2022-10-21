@@ -32,32 +32,24 @@ public class BOJ_2138 {
 		}
 
 		if (N == 2) {
-			String str = "";
-			for (int i = 0; i < 2; i++) {
-				if (diff[i])
-					str += 1;
-				else
-					str += 0;
-			}
-
-			switch (str) {
-			case "11":
+			if (diff[0] && diff[1])
 				ans = 1;
-				break;
-			default:
-				break;
-			}
+			else if (!diff[0] && !diff[1])
+				ans = 0;
+			else
+				ans = -1;
 		} else if (N == 3) {
 			String str = "";
 			for (int i = 0; i < 3; i++) {
 				if (diff[i])
-					str += 1;
+					str += "1";
 				else
-					str += 0;
+					str += "0";
 			}
 
 			switch (str) {
 			case "000":
+				ans = 0;
 				break;
 			case "110":
 				ans = 1;
@@ -76,127 +68,75 @@ public class BOJ_2138 {
 				break;
 			case "101":
 				ans = 2;
+				break;
 			case "010":
 				ans = 3;
+				break;
 			default:
+				ans = -1;
 				break;
 			}
 		} else {
 			for (int i = 0; i <= N - 3; i++) {
-				compare(i);
+				if (diff[i]) {
+					diff[i] = !diff[i];
+					diff[i + 1] = !diff[i + 1];
+					diff[i + 2] = !diff[i + 2];
+					ans++;
+				}
 			}
 
-			boolean check1 = false;
+			boolean check = false;
 			for (int i = 0; i < N; i++) {
 				if (diff[i]) {
-					check1 = true;
+					check = true;
 					break;
 				}
 			}
 
-			int cnt1 = Integer.MAX_VALUE;
-			if(!check1)
-				cnt1 = ans;
-			
+			int cnt1 = ans;
+			if (check)
+				cnt1 = Integer.MAX_VALUE;
+
 			ans = 0;
-			
-			for(int i=0; i<N; i++) {
-				diff[i] = origin_diff[i];
-			}
-			
-			diff[0] = !diff[0];
-			diff[1] = !diff[1];
-			ans+=1;
-			for (int i = 0; i <= N - 3; i++) {
-				compare(i);			
-			}
-
-			boolean check2 = false;
-			for (int i = 0; i < N; i++) {
-				if (diff[i]) {
-					check2 = true;
-					break;
-				}
-			}
-
 			int cnt2 = Integer.MAX_VALUE;
-			if(!check2)
-				cnt2 = ans;
-			
-			ans = 0;
-			
-			for(int i=0; i<N; i++) {
+			for (int i = 0; i < N; i++) {
 				diff[i] = origin_diff[i];
 			}
-			
+
 			diff[0] = !diff[0];
 			diff[1] = !diff[1];
-			diff[2] = !diff[2];
-			ans+=1;
-			
+			ans++;
+
 			for (int i = 0; i <= N - 3; i++) {
-				compare(i);			
+				if (diff[i]) {
+					diff[i] = !diff[i];
+					diff[i + 1] = !diff[i + 1];
+					diff[i + 2] = !diff[i + 2];
+					ans++;
+				}
 			}
 
-			boolean check3 = false;
+			check = false;
 			for (int i = 0; i < N; i++) {
 				if (diff[i]) {
-					check3 = true;
+					check = true;
 					break;
 				}
 			}
 
-			int cnt3 = Integer.MAX_VALUE;
-			if(!check3)
-				cnt3 = ans;
+			cnt2 = ans;
+			if (check)
+				cnt2 = Integer.MAX_VALUE;
 
-			
-			ans = Math.min(Math.min(cnt1, cnt2), cnt3);
-			
-			if(ans==Integer.MAX_VALUE)
+			ans = Math.min(cnt1, cnt2);
+
+			if (ans == Integer.MAX_VALUE)
 				ans = -1;
 
 		}
 
 		System.out.println(ans);
-
 	}
 
-	static void compare(int idx) {
-		String str = "";
-		for (int i = 0; i < 3; i++) {
-			if (diff[idx + i])
-				str += 1;
-			else
-				str += 0;
-		}
-
-		switch (str) {
-		case "000":
-			break;
-		case "011":
-			if (idx < N - 3) {
-				diff[idx + 1] = !diff[idx + 1];
-				diff[idx + 2] = !diff[idx + 2];
-				diff[idx + 3] = !diff[idx + 3];
-			}
-			ans += 1;
-			break;
-		case "111":
-			diff[idx] = !diff[idx];
-			diff[idx + 1] = !diff[idx + 1];
-			diff[idx + 2] = !diff[idx + 2];
-			ans += 1;
-			break;
-		case "100":
-			if (idx < N - 3) {
-				diff[idx] = !diff[idx];
-				diff[idx + 3] = !diff[idx + 3];
-			}
-			ans += 2;
-			break;
-		default:
-			break;
-		}
-	}
 }
