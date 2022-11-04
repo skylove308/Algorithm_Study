@@ -13,18 +13,17 @@ public class BOJ_1459 {
 		long Y = Long.parseLong(st.nextToken());
 		long W = Long.parseLong(st.nextToken());
 		long S = Long.parseLong(st.nextToken());
-		
 
-		if(2*W>S) {
-			long Z = Math.max(X, Y);
-			if(Z%2==0)
-				System.out.println(Math.min(W*Math.abs(X-Y)+S*Math.min(X, Y), S*Z));
-			else
-				System.out.println(Math.min(W*Math.abs(X-Y)+S*Math.min(X, Y), S*(Z-1)+W));
-		}else {
-			System.out.println(W*(X+Y));
+		if (2 * W > S) {
+			if (Math.abs(X - Y) % 2 == 0)
+				System.out.println(Math.min(W * Math.abs(X - Y) + S * Math.min(X, Y), S * Math.max(X, Y)));
+			else {
+				System.out.println(Math.min(W * Math.abs(X - Y) + S * Math.min(X, Y), S * (Math.max(X, Y) - 1) + W));
+			}
+
+		} else {
+			System.out.println(W * (X + Y));
 		}
-		
-		
+
 	}
 }
