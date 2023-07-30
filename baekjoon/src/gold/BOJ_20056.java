@@ -59,13 +59,14 @@ public class BOJ_20056 {
 					if (map[i][j].isEmpty())
 						continue;
 
-					for (int k = 0; k < map[i][j].size(); k++) {
+					int size = map[i][j].size();
+					for (int k = 0; k < size; k++) {
 						Fireball fb = map[i][j].poll();
-						int nx = 0;
-						int ny = 0;
+						int nx = fb.r;
+						int ny = fb.c;
 						for (int l = 0; l < fb.s; l++) {
-							nx = fb.r + dx[fb.d];
-							ny = fb.c + dy[fb.d];
+							nx += dx[fb.d];
+							ny += dy[fb.d];
 							if (nx == 0)
 								nx = N;
 							if (ny == 0)
@@ -80,6 +81,7 @@ public class BOJ_20056 {
 					}
 				}
 			}
+			
 			// 합쳐지는 중
 			for (int i = 1; i <= N; i++) {
 				for (int j = 1; j <= N; j++) {
@@ -90,7 +92,7 @@ public class BOJ_20056 {
 					int s2 = 0;
 					int d2 = -1; // 방향 계속 일치하면 1 or 2 다르면 3
 					int size = map2[i][j].size();
-					for (int k = 0; k < map2[i][j].size(); k++) {
+					for (int k = 0; k < size; k++) {
 						m2 += map2[i][j].get(k).m;
 						s2 += map2[i][j].get(k).s;
 						if (d2 == -1)
@@ -131,7 +133,8 @@ public class BOJ_20056 {
 		int ans = 0;
 		for (int i = 1; i <= N; i++) {
 			for (int j = 1; j <= N; j++) {
-				for (int k = 0; k < map[i][j].size(); k++) {
+				int size = map[i][j].size();
+				for (int k = 0; k < size; k++) {
 					ans += map[i][j].poll().m;
 				}
 			}
